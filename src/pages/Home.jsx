@@ -2,13 +2,14 @@ import Categories from '../components/Categories';
 import PIzzaBlock from '../components/PizzaBlock';
 import Sort from '../components/Sort';
 import '../scss/app.scss';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useEffect } from 'react';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
+import { SearchContext } from '../App';
 
-
-export default function Home({ setSearchValue, serchValue }) {
+export default function Home() {
+  const { serchValue } = useContext(SearchContext);
   const [pizzas, setPizzas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [categoryId, setCategiryId] = useState(0);
@@ -38,7 +39,7 @@ export default function Home({ setSearchValue, serchValue }) {
     window.scrollTo(0, 0);
   }, [categoryId, sortType, search, currentPage]);
 
-  const skeletons = [...new Array(10)].map((_, index) => <Skeleton key={index} />);
+  const skeletons = [...new Array(4)].map((_, index) => <Skeleton key={index} />);
   const pizz = pizzas.map((item) => <PIzzaBlock key={item.id} {...item} />);
 
   return (
@@ -49,7 +50,7 @@ export default function Home({ setSearchValue, serchValue }) {
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">{isLoading ? skeletons : pizz}</div>
-      <Pagination onChangePage={(number) => setCurrentPage(number)}/>
+      <Pagination onChangePage={(number) => setCurrentPage(number)} />
     </>
   );
 }

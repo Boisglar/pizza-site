@@ -11,7 +11,7 @@ export default function Categories({ value, onClickCategory }) {
             <li
               key={index}
               onClick={() => onClickCategory(index)}
-              className={value === index && 'active'}>
+              className={value === index ? 'active' : ''}>
               {item}
             </li>
           );

@@ -1,19 +1,19 @@
-import React from 'react'
+import React from 'react';
 import ReactPaginate from 'react-paginate';
-import s from "./Pagination.module.scss"
+import s from './Pagination.module.scss';
 
-
-export default function Pagination({onChangePage}) {
+export default function Pagination({ onChangePage, currentPage }) {
   return (
     <ReactPaginate
-        className={s.root}
-        breakLabel="..."
-        nextLabel=">"
-        onPageChange={(e) => onChangePage(e.selected + 1)}
-        pageRangeDisplayed={4}
-        pageCount={3}
-        previousLabel="<"
-        renderOnZeroPageCount={null}
-      />
-  )
+      className={s.root}
+      breakLabel="..."
+      nextLabel=">"
+      onPageChange={(e) => onChangePage(e.selected + 1)}
+      pageRangeDisplayed={4}
+      pageCount={3}
+      forcePage={currentPage - 1}
+      previousLabel="<"
+      renderOnZeroPageCount={null}
+    />
+  );
 }

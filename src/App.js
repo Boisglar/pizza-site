@@ -9,10 +9,9 @@ import Cart from './pages/Cart';
 import { createContext, useState } from 'react';
 
 export const SearchContext = createContext('');
-
+ 
 function App() {
   const [serchValue, setSearchValue] = useState('');
-  
 
 
   return (

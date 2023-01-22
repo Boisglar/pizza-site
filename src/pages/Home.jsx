@@ -9,16 +9,16 @@ import Skeleton from '../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
 import { SearchContext } from '../App';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCategiryId, setFIlters, setPageCount } from '../redux/slices/filterSlice';
+import { setCategiryId, setFIlters, setPageCount, selectSort } from '../redux/slices/filterSlice';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
-import { fetchPizzas } from '../redux/slices/pizzaSlice';
+import { fetchPizzas, selectPizzaData } from '../redux/slices/pizzaSlice';
 
 export default function Home() {
   const navigate = useNavigate();
 
-  const { categoryId, sort, currentPage } = useSelector((state) => state.filter);
-  const { pizzas, status } = useSelector((state) => state.pizzas);
+  const { categoryId, sort, currentPage, searchValue } = useSelector(selectSort);
+  const { pizzas, status } = useSelector(selectPizzaData);
 
   const isSearch = useRef(false);
   const isMounted = useRef(false);
@@ -28,12 +28,10 @@ export default function Home() {
     dispatch(setCategiryId(id));
   };
 
-  const { serchValue } = useContext(SearchContext);
-
   const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
   const sortBy = sort.sortProperty.replace('-', '');
   const category = categoryId > 0 ? `category=${categoryId}` : '';
-  const search = serchValue && `search=${serchValue}`;
+  const search = searchValue && `search=${searchValue}`;
 
   const getPizzas = async () => {
     dispatch(

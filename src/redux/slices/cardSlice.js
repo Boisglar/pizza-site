@@ -42,7 +42,8 @@ export const cardSlice = createSlice({
     },
   },
 });
-
+export const selectCart = (state) => state.cart;
+export const selectCartItemById = (id) => (state) => state.cart.items.find((obj) => obj.id === id);
 export const { addItem, removeItem, minusItem, clearItem } = cardSlice.actions;
 
 export default cardSlice.reducer;

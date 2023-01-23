@@ -3,11 +3,10 @@ import PIzzaBlock from '../components/PizzaBlock';
 import Sort from '../components/Sort';
 import { list } from '../components/Sort';
 import '../scss/app.scss';
-import { useContext, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useEffect } from 'react';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
-import { SearchContext } from '../App';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCategiryId, setFIlters, setPageCount, selectSort } from '../redux/slices/filterSlice';
 import qs from 'qs';
@@ -91,21 +90,23 @@ export default function Home() {
 
   return (
     <>
-      <div className="content__top">
-        <Categories value={categoryId} onClickCategory={onClickCategory} />
-        <Sort />
-      </div>
-      <h2 className="content__title">Все пиццы</h2>
-      {status === 'error' ? (
-        <div className="content__error-info">
-          <h2>Произошла ошибка</h2>
-          <p> Не удалось загрузить пиццы, повторите попытку позже.</p>
+      <div className="container">
+        <div className="content__top">
+          <Categories value={categoryId} onClickCategory={onClickCategory} />
+          <Sort />
         </div>
-      ) : (
-        <div className="content__items">{status === 'loaging' ? skeletons : pizz}</div>
-      )}
+        <h2 className="content__title">Все пиццы</h2>
+        {status === 'error' ? (
+          <div className="content__error-info">
+            <h2>Произошла ошибка</h2>
+            <p> Не удалось загрузить пиццы, повторите попытку позже.</p>
+          </div>
+        ) : (
+          <div className="content__items">{status === 'loaging' ? skeletons : pizz}</div>
+        )}
 
-      <Pagination currentPage={currentPage} onChangePage={onChangePage} />
+        <Pagination currentPage={currentPage} onChangePage={onChangePage} />
+      </div>
     </>
   );
 }

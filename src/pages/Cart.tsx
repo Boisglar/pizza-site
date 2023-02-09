@@ -5,15 +5,17 @@ import CardEmpty from '../components/CardEmpty';
 import CartItem from '../components/CartItem';
 import { clearItem, selectCart } from '../redux/slices/cardSlice';
 
-export default function Cart() {
+const Cart: React.FC = () => {
   const dispatch = useDispatch();
   const { items, totalPrice } = useSelector(selectCart);
 
-  const totalCount = items.reduce((sum, item) => sum + item.count, 0);
+  const totalCount = items.reduce((sum:number, item: any) => sum + item.count, 0);
 
   const onClickClear = () => {
+    
     if (window.confirm('Очистить корзину')) {
-      dispatch(clearItem());
+      // @ts-ignore
+      dispatch(clearItem());   
     }
   };
 
@@ -89,7 +91,7 @@ export default function Cart() {
           </div>
         </div>
         <div className="content__items">
-          {items.map((items) => (
+          {items.map((items: any) => (
             <CartItem key={items.id} {...items} />
           ))}
         </div>
@@ -131,3 +133,4 @@ export default function Cart() {
     </div>
   );
 }
+export default Cart

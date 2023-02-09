@@ -3,7 +3,7 @@ import PIzzaBlock from '../components/PizzaBlock';
 import Sort from '../components/Sort';
 import { list } from '../components/Sort';
 import '../scss/app.scss';
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 import { useEffect } from 'react';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
@@ -13,7 +13,7 @@ import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 import { fetchPizzas, selectPizzaData } from '../redux/slices/pizzaSlice';
 
-export default function Home() {
+const  Home: React.FC = () => {
   const navigate = useNavigate();
 
   const { categoryId, sort, currentPage, searchValue } = useSelector(selectSort);
@@ -23,7 +23,7 @@ export default function Home() {
   const isMounted = useRef(false);
 
   const dispatch = useDispatch();
-  const onClickCategory = (id) => {
+  const onClickCategory = (id: number) => {
     dispatch(setCategiryId(id));
   };
 
@@ -34,6 +34,7 @@ export default function Home() {
 
   const getPizzas = async () => {
     dispatch(
+      // @ts-ignore
       fetchPizzas({
         order,
         sortBy,
@@ -45,8 +46,8 @@ export default function Home() {
     window.scrollTo(0, 0);
   };
 
-  const onChangePage = (number) => {
-    dispatch(setPageCount(number));
+  const onChangePage = (page: number) => {
+    dispatch(setPageCount(page));
   };
 
   //если был первый рендер, то проверяем URL - параметры и сохраняем в редукс
@@ -86,7 +87,7 @@ export default function Home() {
   }, [categoryId, sort.sortProperty, search, currentPage]);
 
   const skeletons = [...new Array(4)].map((_, index) => <Skeleton key={index} />);
-  const pizz = pizzas.map((item) => <PIzzaBlock key={item.id} {...item} />);
+  const pizz = pizzas.map((item: any) => <PIzzaBlock key={item.id} {...item} />);
 
   return (
     <>
@@ -110,3 +111,5 @@ export default function Home() {
     </>
   );
 }
+
+export default Home

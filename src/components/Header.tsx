@@ -5,11 +5,11 @@ import logoSvg from '../assets/img/pizza-logo.svg';
 import { selectCart } from '../redux/slices/cardSlice';
 import Search from './Search/Index';
 
-export default function Header() {
+const Header = () => {
   const { items, totalPrice } = useSelector(selectCart);
   const location = useLocation();
 
-  const totalCount = items.reduce((sum, item) => sum + item.count, 0);
+  const totalCount = items.reduce((sum: number, item: any) => sum + item.count, 0);
 
   return (
     <div className="header">
@@ -64,4 +64,6 @@ export default function Header() {
       </div>
     </div>
   );
-}
+};
+
+export default Header;

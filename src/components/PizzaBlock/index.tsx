@@ -4,7 +4,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addItem, selectCartItemById } from '../../redux/slices/cardSlice';
 
-export default function PIzzaBlock({ id, title, price, imageUrl, sizes, types }) {
+type PIzzaBlockProps = {
+id:string, 
+title:string, 
+price: number, 
+imageUrl:string, 
+sizes: number[], 
+types: number[] 
+}
+
+const PIzzaBlock: React.FC <PIzzaBlockProps> = ({ id, title, price, imageUrl, sizes, types }) => {
   const dispatch = useDispatch();
   const [activeSize, setActiveSiza] = useState(0);
   const [activeType, setActiveType] = useState(0);
@@ -80,3 +89,4 @@ export default function PIzzaBlock({ id, title, price, imageUrl, sizes, types })
     </div>
   );
 }
+export default PIzzaBlock

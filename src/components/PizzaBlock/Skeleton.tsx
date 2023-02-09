@@ -1,9 +1,8 @@
 import React from 'react';
 import ContentLoader from 'react-content-loader';
 
-// type SkeletonType = {};
 
-const Skeleton = (props) => (
+const Skeleton: React.FC = (props) => (
   <ContentLoader
     className="pizza-block"
     speed={2}

@@ -12,6 +12,7 @@ import { setCategiryId, setFIlters, setPageCount, selectSort } from '../redux/sl
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 import { fetchPizzas, selectPizzaData } from '../redux/slices/pizzaSlice';
+import { useAppDispath } from '../redux/store';
 
 const  Home: React.FC = () => {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ const  Home: React.FC = () => {
   const isSearch = useRef(false);
   const isMounted = useRef(false);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispath();
   const onClickCategory = (id: number) => {
     dispatch(setCategiryId(id));
   };
@@ -34,13 +35,12 @@ const  Home: React.FC = () => {
 
   const getPizzas = async () => {
     dispatch(
-      // @ts-ignore
       fetchPizzas({
         order,
         sortBy,
         category,
         search,
-        currentPage,
+        currentPage: String(currentPage),
       }),
     );
     window.scrollTo(0, 0);
@@ -58,7 +58,7 @@ const  Home: React.FC = () => {
       dispatch(
         setFIlters({
           ...params,
-          sort,
+           sort
         }),
       );
       isSearch.current = true;
@@ -103,7 +103,7 @@ const  Home: React.FC = () => {
             <p> Не удалось загрузить пиццы, повторите попытку позже.</p>
           </div>
         ) : (
-          <div className="content__items">{status === 'loaging' ? skeletons : pizz}</div>
+          <div className="content__items">{status === 'loading' ? skeletons : pizz}</div>
         )}
 
         <Pagination currentPage={currentPage} onChangePage={onChangePage} />

@@ -15,7 +15,7 @@ const Cart: React.FC = () => {
     
     if (window.confirm('Очистить корзину')) {
       // @ts-ignore
-      dispatch(clearItem());   
+      dispatch(clearItem()); 
     }
   };
 

@@ -13,8 +13,8 @@ function App() {
       <Route path="/" element={<MainLayout />}>
         <Route path="" element={<Home />} />
         <Route path="card" element={<Cart />} />
-        <Route path="pizza/:id" element={<FullPizza/>} />
-        <Route path=" *" element={<NotFound />} />
+        <Route path="pizza/:id" element={<FullPizza />} />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   );

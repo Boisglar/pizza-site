@@ -1,9 +1,9 @@
 import Categories from '../components/Categories';
 import PIzzaBlock from '../components/PizzaBlock';
 import Sort from '../components/Sort';
-import { list } from '../components/Sort';
+import SortPopup, { list } from '../components/Sort';
 import '../scss/app.scss';
-import React, { useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { useEffect } from 'react';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import { fetchPizzas, SearchPizzaParams, selectPizzaData } from '../redux/slices/pizzaSlice';
 import { useAppDispatсh } from '../redux/store';
 
-const  Home: React.FC = () => {
+const Home: React.FC = () => {
   const navigate = useNavigate();
 
   const { categoryId, sort, currentPage, searchValue } = useSelector(selectSort);
@@ -24,10 +24,10 @@ const  Home: React.FC = () => {
   const isMounted = useRef(false);
 
   const dispatch = useAppDispatсh();
-  
-  const onClickCategory = (id: number) => {
+
+  const onClickCategory = useCallback((id: number) => {
     dispatch(setCategiryId(id));
-  };
+  }, []);
 
   const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
   const sortBy = sort.sortProperty.replace('-', '');
@@ -54,14 +54,14 @@ const  Home: React.FC = () => {
   //если был первый рендер, то проверяем URL - параметры и сохраняем в редукс
   useEffect(() => {
     if (window.location.search) {
-      const params = (qs.parse(window.location.search.substring(1)) as unknown) as SearchPizzaParams;
+      const params = qs.parse(window.location.search.substring(1)) as unknown as SearchPizzaParams;
       const sort = list.find((obj) => obj.sortProperty === params.sortBy);
       dispatch(
         setFIlters({
-          searchValue : params.search,
+          searchValue: params.search,
           categoryId: Number(params.category),
           currentPage: Number(params.currentPage),
-          sort: sort || list[0] 
+          sort: sort || list[0],
         }),
       );
       isSearch.current = true;
@@ -97,7 +97,7 @@ const  Home: React.FC = () => {
       <div className="container">
         <div className="content__top">
           <Categories value={categoryId} onClickCategory={onClickCategory} />
-          <Sort />
+          <SortPopup value={sort} />
         </div>
         <h2 className="content__title">Все пиццы</h2>
         {status === 'error' ? (
@@ -113,6 +113,6 @@ const  Home: React.FC = () => {
       </div>
     </>
   );
-}
+};
 
-export default Home
+export default Home;

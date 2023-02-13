@@ -3,8 +3,17 @@ import { RootState } from '../store';
 
 export type Sort = {
   name: string;
-  sortProperty: 'rating' | 'title' | 'price' | '  -rating' | '-title' | '-price';
+  sortProperty: SortPropertyEnum;
 };
+
+export enum SortPropertyEnum {
+  RATING_DESC = 'rating',
+  RATING_ASC = '-rating',
+  TITLE_DESC = 'title',
+  TITLE_ASC = '-title',
+  PRICE_DESC = 'price',
+  PRICE_ASC = '-price',
+}
 
 interface FilterSliceState {
   searchValue: string;
@@ -19,7 +28,7 @@ const initialState: FilterSliceState = {
   currentPage: 1,
   sort: {
     name: 'популярности',
-    sortProperty: 'rating',
+    sortProperty: SortPropertyEnum.PRICE_DESC,
   },
 };
 

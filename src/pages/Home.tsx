@@ -11,8 +11,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setCategiryId, setFIlters, setPageCount, selectSort } from '../redux/slices/filterSlice';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
-import { fetchPizzas, selectPizzaData } from '../redux/slices/pizzaSlice';
-import { useAppDispath } from '../redux/store';
+import { fetchPizzas, SearchPizzaParams, selectPizzaData } from '../redux/slices/pizzaSlice';
+import { useAppDispatсh } from '../redux/store';
 
 const  Home: React.FC = () => {
   const navigate = useNavigate();
@@ -23,7 +23,8 @@ const  Home: React.FC = () => {
   const isSearch = useRef(false);
   const isMounted = useRef(false);
 
-  const dispatch = useAppDispath();
+  const dispatch = useAppDispatсh();
+  
   const onClickCategory = (id: number) => {
     dispatch(setCategiryId(id));
   };
@@ -53,12 +54,14 @@ const  Home: React.FC = () => {
   //если был первый рендер, то проверяем URL - параметры и сохраняем в редукс
   useEffect(() => {
     if (window.location.search) {
-      const params = qs.parse(window.location.search.substring(1));
-      const sort = list.find((obj) => obj.sortProperty === params.sortProperty);
+      const params = (qs.parse(window.location.search.substring(1)) as unknown) as SearchPizzaParams;
+      const sort = list.find((obj) => obj.sortProperty === params.sortBy);
       dispatch(
         setFIlters({
-          ...params,
-           sort
+          searchValue : params.search,
+          categoryId: Number(params.category),
+          currentPage: Number(params.currentPage),
+          sort: sort || list[0] 
         }),
       );
       isSearch.current = true;

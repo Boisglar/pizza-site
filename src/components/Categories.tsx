@@ -1,14 +1,17 @@
-import React from 'react';
-
+import { useWhyDidYouUpdate } from 'ahooks';
+import React, { memo } from 'react';
 
 type CategoriesProps = {
   value: number;
-  onClickCategory: (index: number ) => void;
-}
+  onClickCategory: (index: number) => void;
+};
 
- const Categories: React.FC<CategoriesProps> = ({ value, onClickCategory }) => {
+const Categories: React.FC<CategoriesProps> = memo(({ value, onClickCategory }) => {
   const categories = ['все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
+  //функция которая проверяет почему идет рендер
+  useWhyDidYouUpdate('Categories', { value, onClickCategory });
+  //
   return (
     <div className="categories">
       <ul>
@@ -25,5 +28,5 @@ type CategoriesProps = {
       </ul>
     </div>
   );
-}
-export default Categories
+});
+export default Categories;

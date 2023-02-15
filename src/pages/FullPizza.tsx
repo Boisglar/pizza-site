@@ -1,15 +1,15 @@
 import axios from 'axios';
 import React from 'react';
-import  { useState } from 'react';
+import { useState } from 'react';
 import { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
-const FullPizza: React.FC =  () => {
+const FullPizza: React.FC = () => {
   const [pizza, setPizza] = useState<{
-    imageUrl: string, 
-    title: string, 
-    price: number,
-  }> ();
+    imageUrl: string;
+    title: string;
+    price: number;
+  }>();
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -24,18 +24,24 @@ const FullPizza: React.FC =  () => {
       }
     }
     fetchPizza();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!pizza) {
     return <h1>loading</h1>;
   }
   return (
-    <div>
+    <div className="container">
       <img src={pizza.imageUrl} alt="" />
       <h3>{pizza.title}</h3>
       <h3>{pizza.price} руб</h3>
+      <br />
+      <Link to="/">
+        <button className="button button--outline button--add">
+          <span>Назад</span>
+        </button>
+      </Link>
     </div>
   );
-}
+};
 
-export default FullPizza
+export default FullPizza;

@@ -1,21 +1,17 @@
-import Categories from '../components/Categories';
-import PIzzaBlock from '../components/PizzaBlock';
-import Sort from '../components/Sort';
-import SortPopup, { list } from '../components/Sort';
-import '../scss/app.scss';
 import React, { useCallback, useRef } from 'react';
 import { useEffect } from 'react';
-import Skeleton from '../components/PizzaBlock/Skeleton';
-import Pagination from '../components/Pagination';
+import { Skeleton, Pagination, PizzaBlock, Categories, SortPopup } from '../components';
 import { useSelector } from 'react-redux';
 import { setCategiryId, setFIlters, setPageCount } from '../redux/filter/slice';
-import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 import { SearchPizzaParams } from '../redux/pizza/slice';
 import { useAppDispatсh } from '../redux/store';
 import { selectSort } from '../redux/filter/selectors';
 import { selectPizzaData } from '../redux/pizza/selectors';
 import { fetchPizzas } from '../redux/pizza/asyncActions';
+import { list } from '../components/Sort';
+import qs from 'qs';
+import '../scss/app.scss';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -30,7 +26,7 @@ const Home: React.FC = () => {
 
   const onClickCategory = useCallback((id: number) => {
     dispatch(setCategiryId(id));
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
   const sortBy = sort.sortProperty.replace('-', '');
@@ -69,7 +65,7 @@ const Home: React.FC = () => {
       );
       isSearch.current = true;
     }
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Если изменили параметры и был первый рендер
   useEffect(() => {
@@ -82,7 +78,7 @@ const Home: React.FC = () => {
       navigate(`?${queryString}`);
     }
     isMounted.current = true;
-  }, [categoryId, sort.sortProperty, search, currentPage]);
+  }, [categoryId, sort.sortProperty, search, currentPage]); // eslint-disable-line react-hooks/exhaustive-deps
   // Если был первый рендер то запрашиваем Пиццы
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -90,10 +86,10 @@ const Home: React.FC = () => {
     getPizzas();
 
     isSearch.current = false;
-  }, [categoryId, sort.sortProperty, search, currentPage]);
+  }, [categoryId, sort.sortProperty, search, currentPage]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const skeletons = [...new Array(4)].map((_, index) => <Skeleton key={index} />);
-  const pizz = pizzas.map((item: any) => <PIzzaBlock key={item.id} {...item} />);
+  const pizz = pizzas.map((item: any) => <PizzaBlock key={item.id} {...item} />);
 
   return (
     <>

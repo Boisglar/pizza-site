@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { calcTotalPrice } from '../../utils/calcTotalPrice';
 import { getCardFromLS } from '../../utils/getCardFS';
-import { RootState } from '../store';
 import { CardItem, CardSliceState } from './types';
 
 const { items, totalPrice } = getCardFromLS()

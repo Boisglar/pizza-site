@@ -1,6 +1,6 @@
-import { useWhyDidYouUpdate } from 'ahooks';
+//import { useWhyDidYouUpdate } from 'ahooks';
 import React, { memo } from 'react';
-import { useEffect } from 'react';
+//import { useEffect } from 'react';
 import { useRef } from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -12,9 +12,9 @@ type listItem = {
   sortProperty: SortPropertyEnum;
 };
 
-type PopupClick = MouseEvent & {
-  path: Node[];
-};
+// type PopupClick = MouseEvent & {
+//   path: Node[];
+// };
 type SortPopupProps = {
   value: Sort;
 };

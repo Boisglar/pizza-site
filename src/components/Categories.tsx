@@ -1,4 +1,4 @@
-import { useWhyDidYouUpdate } from 'ahooks';
+//import { useWhyDidYouUpdate } from 'ahooks';
 import React, { memo } from 'react';
 
 type CategoriesProps = {

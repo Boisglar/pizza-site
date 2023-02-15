@@ -2,18 +2,20 @@ import React from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addItem, CardItem, selectCartItemById } from '../../redux/slices/cardSlice';
+import { selectCartItemById } from '../../redux/cart/selectors';
+import { addItem } from '../../redux/cart/slice';
+import { CardItem } from '../../redux/cart/types';
 
 type PIzzaBlockProps = {
-id:string, 
-title:string, 
-price: number, 
-imageUrl:string, 
-sizes: number[], 
-types: number[],
-}
+  id: string;
+  title: string;
+  price: number;
+  imageUrl: string;
+  sizes: number[];
+  types: number[];
+};
 
-const PIzzaBlock: React.FC <PIzzaBlockProps> = ({ id, title, price, imageUrl, sizes, types }) => {
+const PIzzaBlock: React.FC<PIzzaBlockProps> = ({ id, title, price, imageUrl, sizes, types }) => {
   const dispatch = useDispatch();
   const [activeSize, setActiveSiza] = useState(0);
   const [activeType, setActiveType] = useState(0);
@@ -30,7 +32,7 @@ const PIzzaBlock: React.FC <PIzzaBlockProps> = ({ id, title, price, imageUrl, si
       imageUrl,
       type: typeNames[activeType],
       size: sizes[activeSize],
-      count: 0
+      count: 0,
     };
     dispatch(addItem(item));
   };
@@ -89,5 +91,5 @@ const PIzzaBlock: React.FC <PIzzaBlockProps> = ({ id, title, price, imageUrl, si
       </div>
     </div>
   );
-}
-export default PIzzaBlock
+};
+export default PIzzaBlock;

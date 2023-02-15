@@ -10,7 +10,7 @@ const Categories: React.FC<CategoriesProps> = memo(({ value, onClickCategory }) 
   const categories = ['все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
   //функция которая проверяет почему идет рендер
-  useWhyDidYouUpdate('Categories', { value, onClickCategory });
+  //useWhyDidYouUpdate('Categories', { value, onClickCategory });
   //
   return (
     <div className="categories">

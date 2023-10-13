@@ -1,6 +1,6 @@
-//import { useWhyDidYouUpdate } from 'ahooks';
+// import { useWhyDidYouUpdate } from 'ahooks';
 import React, { memo } from 'react';
-//import { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useRef } from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -12,9 +12,6 @@ type listItem = {
   sortProperty: SortPropertyEnum;
 };
 
-// type PopupClick = MouseEvent & {
-//   path: Node[];
-// };
 type SortPopupProps = {
   value: Sort;
 };
@@ -31,7 +28,7 @@ export const list: listItem[] = [
 const SortPopup: React.FC<SortPopupProps> = memo(({ value }) => {
   const sortRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
-  //useWhyDidYouUpdate('SortPopup', { value });
+  // useWhyDidYouUpdate('SortPopup', { value });
   const [open, setOpen] = useState(false);
 
   const onClickListItem = (obj: listItem) => {
@@ -40,16 +37,15 @@ const SortPopup: React.FC<SortPopupProps> = memo(({ value }) => {
   };
 
   // Функция для которая закрывает модальное окно
-  // useEffect(() => {
-  //   const handeleClickOutside = (event: MouseEvent) => {
-  //     const _event = event as PopupClick
-  //     if (sortRef.current && !_event.path.includes(sortRef.current)) {
-  //       setOpen(false);
-  //     }
-  //   };
-  //   document.body.addEventListener('click', handeleClickOutside);
-  //   return () => document.removeEventListener('click', handeleClickOutside);
-  // }, []);
+  useEffect(() => {
+    const handeleClickOutside = (event: MouseEvent) => {
+      if (sortRef.current && !sortRef.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.body.addEventListener('click', handeleClickOutside);
+    return () => document.removeEventListener('click', handeleClickOutside);
+  }, []);
 
   return (
     <div ref={sortRef} className="sort">
